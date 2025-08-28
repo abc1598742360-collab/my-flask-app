@@ -2532,13 +2532,12 @@ def graceful_shutdown(sig, frame):
 signal.signal(signal.SIGINT, graceful_shutdown)
 signal.signal(signal.SIGTERM, graceful_shutdown)
 
+signal.signal(signal.SIGINT, graceful_shutdown)
+signal.signal(signal.SIGTERM, graceful_shutdown)
+
 if __name__ == '__main__':
+    import os
     port = int(os.environ.get('PORT', 5000))
     logger.info(f'🚀 Starting Strategy Discovery Flask server on port {port}')
     # Production: use gunicorn Strategydiscovery_15:app --bind 0.0.0.0:$PORT --workers 4
     app.run(host='0.0.0.0', port=port, debug=False, threaded=True)
-
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
